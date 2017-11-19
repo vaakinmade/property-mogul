@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+
+{% block title %} Mogul | Find your dream home {% endblock %}
+
+{% block content %}
+
+
+<!-- Banner
+================================================== -->
+<div class="parallax" data-background="{% static 'images/family-house.jpg' %}" data-color="#36383e" data-color-opacity="0.75" data-img-width="2500" data-img-height="1600">
+	<div class="parallax-content">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					<!-- Main Search Container -->
+					<div class="main-search-container margin-bottom-50">
+						<h2>Find Your Dream Home</h2>
+						
+						<!-- Main Search -->
+						<form class="main-search-form">
+							
+							<!-- Type -->
+							<div class="search-type">
+								<label class="active"><input class="first-tab" name="tab" type="radio">Any Status</label>
+								<label><input name="tab" type="radio" value="For Sale">For Sale</label>
+								<label><input name="tab" type="radio" value="For Rent">For Rent</label>
+								<div class="search-type-arrow"></div>
+							</div>
+
+							
+							<!-- Box -->
+							<div class="main-search-box">
+								
+								<!-- Main Search Input -->
+								<div class="main-search-input larger-input">
+									<input type="text" class="ico-01" placeholder="Enter address e.g. street, city and state or zip" value="" name="location" />
+									<button type="submit" class="button">Search</button>
+								</div>
+								
+							</div>
+							<!-- Box / End -->
+
+						</form>
+						<!-- Main Search -->
+
+					</div>
+					<!-- Main Search Container / End -->
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+{% endblock %}
