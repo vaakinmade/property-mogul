@@ -2,5 +2,5 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^search$', views.SearchMogul.as_view(), name='search'),
+    url(r'^search$', views.SearchMogulView.as_view(), name='search'),
 ]
