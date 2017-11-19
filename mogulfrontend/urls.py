@@ -23,7 +23,7 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    #url(r'^listings/', include('listings.urls', namespace='listings')),
+    url(r'^listings/', include('listings.urls', namespace='listings')),
     url(r'^$', views.HomeView.as_view(), name='home'),
 ]
 urlpatterns += staticfiles_urlpatterns()
