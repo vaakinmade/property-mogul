@@ -20,13 +20,13 @@
 						<h2>Find Your Dream Home</h2>
 						
 						<!-- Main Search -->
-						<form class="main-search-form">
+						<form id="searchform" action="{% url 'listings:search' %}" method="get" accept-charset="utf-8" class="main-search-form">
 							
 							<!-- Type -->
 							<div class="search-type">
-								<label class="active"><input class="first-tab" name="tab" type="radio">Any Status</label>
-								<label><input name="tab" type="radio" value="For Sale">For Sale</label>
-								<label><input name="tab" type="radio" value="For Rent">For Rent</label>
+								<label class="active"><input class="first-tab" name="status" type="radio">Any Status</label>
+								<label><input name="status" type="radio" value="For Sale">For Sale</label>
+								<label><input name="status" type="radio" value="For Rent">For Rent</label>
 								<div class="search-type-arrow"></div>
 							</div>
 
