@@ -17,3 +17,7 @@ class SearchMogulView(generic.View):
 			return render(request, 'listings/search_result.html', listings)
 		else:
 			return render(request, 'listings/search_result.html')
+
+
+#class ListingListView(generic.ListView):
+
