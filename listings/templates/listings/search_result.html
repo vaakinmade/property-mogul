@@ -16,7 +16,7 @@
 				{% if listings %}
 					{{listings.0.listingimage_set.all}} Properties {{listings.0.status}} in {{listings.0.state}}
 				{% else %}
-					Properties 
+					Properties
 				{% endif %}
 			</h4>
 
@@ -26,18 +26,18 @@
 
 				<!-- Row With Forms -->
 				<div class="row with-forms">
-
+					<form id="searchform" action="{% url 'listings:search' %}" method="get" accept-charset="utf-8" class="main-search-for">
 					<!-- Main Search Input -->
 					<div class="col-md-3">
 						<div class="main-search-input">
-							<input type="text" placeholder="Enter address e.g. street, city or state" value="{{request.GET.location|default:''}}" />
+							<input type="text" name="location" placeholder="Enter address e.g. street, city or state" value="{{request.GET.location|default:''}}" />
 						</div>
 					</div>
 					
 					<!-- Property Type -->
 					<div class="col-md-2">
-						<select data-placeholder="Any Type" class="chosen-select-no-single" >
-							<option></option>	
+						<select name="listing_type" data-placeholder="Any Type" class="chosen-select-no-single" >
+							<option>Any Type</option>	
 							<option 
 							{% if request.GET.listing_type == 'Apartments' %}selected{% endif %}>
 							 <i class="fa fa-building"></i>Apartments
@@ -63,7 +63,7 @@
 
 					<!-- Status -->
 					<div class="col-md-2">
-						<select data-placeholder="Any Status" class="chosen-select-no-single" >
+						<select name="status" data-placeholder="Any Status" class="chosen-select-no-single" >
 							<option>Any Status</option>
 							<option 
 							{% if request.GET.status == 'For Sale' %}selected{% endif %}>
@@ -81,9 +81,10 @@
 						
 						<!-- Select Input -->
 						<div class="select-input disabled-first-option">
-							<input type="text" value="{{request.GET.max_price}}" placeholder="Max Price" data-unit="NGN">
+							<input name="max_price" type="text" value="{{request.GET.max_price}}" placeholder="Max Price" data-unit="NGN">
 							<select>
-								<option>Max Price</option>
+								<option></option>								
+								<option>Max.</option>
 								<option>250 000</option>
 								<option>500 000</option>
 								<option>1 000 000</option>
@@ -115,27 +116,43 @@
 
 					<!-- Bedrooms -->
 					<div class="col-md-2">
-						<select data-placeholder="Any bedroom" class="chosen-select-no-single" >
+						<select name="bedroom" data-placeholder="Any bedroom" class="chosen-select-no-single" >
+							<option>Any Bed</option>
 							<option 
-							{% if request.GET.bedroom %}selected{% endif %}>
-								{{request.GET.bedroom}} bedrooms
+							{% if request.GET.status == 1 %}selected{% endif %}>
+							 1
 							</option>
-							<option>Any beds</option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
+							<option 
+							{% if request.GET.status == 2 %}selected{% endif %}>
+							 2
+							</option>
+							<option 
+							{% if request.GET.status == 3 %}selected{% endif %}>
+							 3
+							</option>
+							<option 
+							{% if request.GET.status == 4 %}selected{% endif %}>
+							 4
+							</option>
+							<option 
+							{% if request.GET.status == 5 %}selected{% endif %}>
+							 5
+							</option>
+							<option 
+							{% if request.GET.status == 6 %}selected{% endif %}>
+							 6
+							</option>
 						</select>
 					</div>
 
 					<!-- Search button -->
 					<div class="col-md-1">
 						<div class="main-search-inpu">
-							<button style='margin-left:-8px; padding-bottom:12px;' class="button">Search</button>
+							<button type="submit" style='margin-left:-8px; padding-bottom:12px;' class="button">Search</button>
 						</div>
 					</div>
 
-					
+				</form>
 				</div>
 				<!-- Row With Forms / End -->
 			
@@ -150,117 +167,15 @@
 
 <!-- Content
 ================================================== -->
-<div class="container">
+<div class="container margin-bottom-100">
 	<div class="row fullwidth-layout">
 
 		<div class="col-md-12">
 
 			<!-- Sorting / Filter/ Layout Switcher -->
 			<div class="row margin-bottom-15">
-				<div class="col-md-8">
-					<div class="col-md-12">
-						<!-- More Search Options -->
-					<a href="#" class="more-search-options-trigger margin-top-10" data-open-title="Filter Options" data-close-title="Less Options"></a>
-
-					<div class="more-search-options relative">
-						<div class="more-search-options-container">
-
-							<!-- Row With Forms -->
-							<div class="row with-forms">
-
-								<!-- Age of Home -->
-								<div class="col-md-3">
-									<select data-placeholder="Age of Home" class="chosen-select-no-single" >
-										<option label="blank"></option>	
-										<option>Age of Home (Any)</option>	
-										<option>0 - 1 Years</option>
-										<option>0 - 5 Years</option>
-										<option>0 - 10 Years</option>
-										<option>0 - 20 Years</option>
-										<option>0 - 50 Years</option>
-										<option>50 + Years</option>
-									</select>
-								</div>
-
-								<!-- Rooms Area -->
-								<div class="col-md-3">
-									<select data-placeholder="Rooms" class="chosen-select-no-single" >
-										<option label="blank"></option>	
-										<option>Rooms (Any)</option>	
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
-									</select>
-								</div>
-
-								<!-- Min Area -->
-								<div class="col-md-3">
-									<select data-placeholder="Beds" class="chosen-select-no-single" >
-										<option label="blank"></option>	
-										<option>Beds (Any)</option>	
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
-									</select>
-								</div>
-
-								<!-- Max Area -->
-								<div class="col-md-3">
-									<select data-placeholder="Baths" class="chosen-select-no-single" >
-										<option label="blank"></option>	
-										<option>Baths (Any)</option>	
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
-									</select>
-								</div>
-
-							</div>
-							<!-- Row With Forms / End -->
-
-
-							<!-- Checkboxes -->
-							<div class="checkboxes in-row">
-						
-								<input id="check-2" type="checkbox" name="check">
-								<label for="check-2">Air Conditioning</label>
-
-								<input id="check-3" type="checkbox" name="check">
-								<label for="check-3">Swimming Pool</label>
-
-								<input id="check-4" type="checkbox" name="check" >
-								<label for="check-4">Central Heating</label>
-
-								<input id="check-5" type="checkbox" name="check">
-								<label for="check-5">Laundry Room</label>	
-
-
-								<input id="check-6" type="checkbox" name="check">
-								<label for="check-6">Gym</label>
-
-								<input id="check-7" type="checkbox" name="check">
-								<label for="check-7">Alarm</label>
-
-								<input id="check-8" type="checkbox" name="check">
-								<label for="check-8">Window Covering</label>
-						
-							</div>
-							<!-- Checkboxes / End -->
-
-						</div>
-
-					</div>
-					<!-- More Search Options / End -->
-				</div>
-				</div>
-
-				<div class="col-md-2" style="padding:0px;">
+				
+				<div class="col-md-6">
 					<!-- Sort by -->
 					<div class="sort-by">
 						<label>Sort by:</label>
@@ -277,7 +192,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-2">
+				<div class="col-md-6">
 					<!-- Layout Switcher -->
 					<div class="layout-switcher">
 						<a href="#" class="list"><i class="fa fa-th-list"></i></a>
