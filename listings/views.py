@@ -8,14 +8,12 @@ from iso8601 import parse_date
 
 
 class SearchMogulView(generic.View):
-	@staticmethod
-	def convert_to_datetime(response):
+	def convert_to_datetime(self, response):
 		listing = list()
 		for each in response.json():
 			each.update({"created_at":parse_date(each['created_at'])})
 			listing.append(each)
 		return listing
-
 
 	def get(self, request):
 		query_dict = self.request.GET
@@ -24,7 +22,7 @@ class SearchMogulView(generic.View):
 			query = (query_dict.dict())
 			response = interface.search_listings(**query)
 
-			listings = {"listings" : SearchMogulView.convert_to_datetime(response)}
+			listings = {"listings" : self.convert_to_datetime(response)}
 			return render(request, 'listings/search_result.html', listings)
 		else:
 			return render(request, 'listings/search_result.html')
@@ -32,7 +30,13 @@ class SearchMogulView(generic.View):
 
 class ListingDetailView(generic.View):
 
+	def split_features(self, response):
+		listing = response.json()
+		features_list = listing.get('features').split(",")
+		listing.update({"features":features_list})
+		return listing
+
 	def get(self, request, pk):
 		response = interface.detail_listings(self.kwargs.get('pk'))
-		listing = {"listing": response.json()}
+		listing = {"listing": self.split_features(response)}
 		return render(request, 'listings/listing_detail.html', listing)
