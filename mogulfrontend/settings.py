@@ -76,7 +76,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mogulfrontend.wsgi.application'
 
 # AWS config
-if 'DYNO' not in os.environ:
+if 'DYNO' in os.environ:
     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME', cast=str)
     AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', cast=str)
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', cast=str)
