@@ -4,25 +4,27 @@
 
 {% block content %}
 
+<!-- Titlebar
+================================================== -->
+<div class="parallax" style="background-position: 0% 60%;" data-background="{% static 'images/family-house.jpg' %}" data-color="fa5b0f" data-color-opacity="0.35" data-img-width="700" data-img-height="600">
+	<div class="parallax-content">
+		<div class="container">
+			<div class="property-parallax">
+				<h1>Properties</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!-- Search
 ================================================== -->
-<section class="search margin-bottom-50">
+<section class="search margin-bottom-30">
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 
-			<!-- Title -->
-			<h4 class="search-title">
-				{% if listings %}
-					{{listings.0.listingimage_set.all}} Properties {{listings.0.status}} in {{listings.0.state}}
-				{% else %}
-					Properties
-				{% endif %}
-			</h4>
-
 			<!-- Form -->
-			<div class="main-search-box no-shadow">
-
+			<div class="main-search-box no-shadow margin-bottom-" style="margin-top:-30px; margin-bottom: -50px">
 
 				<!-- Row With Forms -->
 				<div class="row with-forms">
@@ -176,20 +178,11 @@
 			<div class="row margin-bottom-15">
 				
 				<div class="col-md-6">
-					<!-- Sort by -->
-					<div class="sort-by">
-						<label>Sort by:</label>
-
-						<div class="sort-by-select">
-							<select data-placeholder="Default order" class="chosen-select-no-single" >
-								<option>Default Order</option>	
-								<option>Price Low to High</option>
-								<option>Price High to Low</option>
-								<option>Newest Properties</option>
-								<option>Oldest Properties</option>
-							</select>
-						</div>
-					</div>
+					{% if request.GET.location %}
+						<h4>Properties {{listings.0.status}} in {{request.GET.location}}</h4>
+					{% else %}
+						Properties {{listings.0.status}}
+					{% endif %}
 				</div>
 
 				<div class="col-md-6">
@@ -202,15 +195,15 @@
 			</div>
 			
 			<!-- Listings -->
-			<div class="listings-container list-layout">
+			<div class="listings-container grid-layout-three">
 
 				{% for listing in listings %}
 					
 				<!-- Listing Item -->
 				<div class="listing-item">
 
-					<a href="single-property-page-1.html" class="listing-img-container">
-
+					<a href="{% url 'listings:detail' pk=listing.id %}" class="listing-img-container" style="max-height:250px; overflow:hidden;">
+					<div>
 						<div class="listing-badges">
 							<span>{{listing.status|title}}</span>
 						</div>
@@ -220,20 +213,21 @@
 							<span class="like-icon tooltip"></span>
 						</div>
 
-						<div class="listing-carousel">
-							{% for item in listing.listingimages %}
-								<div><img src="{{item.image}}"></div>
-							{% endfor %}						
+						<div class="listing-carouse">
+							<div>
+								<img src="{{listing.listingimages.0.image}}">
+							</div>						
 						</div>
+					</div>
 					</a>
 					
-					<div class="listing-content">
+					<div class="listing-content listing-content-2">
 
 						<div class="listing-title">
-							<h4><a href="single-property-page-1.html">{{listing.name}}</a></h4>
-							<a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+							<h4><a href="{% url 'listings:detail' pk=listing.id %}">{{listing.name}}</a></h4>
+							<a href="{% url 'listings:detail' pk=listing.id %}" class="listing-address">
 								<i class="fa fa-map-marker"></i>
-								{{listing.address}}
+								{{listing.address}}, {{listing.town}}
 							</a>
 
 							<a href="{% url 'listings:detail' pk=listing.id %}" class="details button border">Details</a>
@@ -250,7 +244,7 @@
 						</ul>
 
 						<div class="listing-footer">
-							<a href="#"><i class="fa fa-user"></i> {{listing.added_by_user}}</a>
+							<i class="fa fa-user"></i> {{listing.added_by_user}}
 							<span><i class="fa fa-calendar-o"></i> {{listing.created_at|timesince}}</span>
 						</div>
 
