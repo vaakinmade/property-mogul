@@ -10,7 +10,7 @@ from iso8601 import parse_date
 class SearchMogulView(generic.View):
 	def convert_to_datetime(self, response):
 		listing = list()
-		for each in response.json().get('results'):
+		for each in response.json():#.get('results'):
 			each.update({"created_at":parse_date(each['created_at'])})
 			listing.append(each)
 		return listing
