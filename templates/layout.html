@@ -49,10 +49,7 @@
 					<ul id="responsive" class="padding-top-25">
 
 						<li class="margin-right-40">
-							<form action="{% url 'listings:search' %}" method="get" accept-charset="utf-8">
-								<input type="hidden" name="status" value="For Rent">
-								<button type="submit" class="link-button">FOR RENT</button>
-							</form>
+							<a href="{% url 'listings:rent' %}">FOR RENT</a>
 						</li>
 
 						<li class="margin-right-40">
