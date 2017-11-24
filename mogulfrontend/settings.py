@@ -29,7 +29,7 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['localhost', '.herokuapp.com', '127.0.0.1']
 
-MOGUL_API_BASE_HOST = 'http://127.0.0.1:5050' # config('MOGUL_API_BASE_HOST') #"https://mogul-api.herokuapp.com"
+MOGUL_API_BASE_HOST = "https://mogul-api.herokuapp.com"
 
 # Application definition
 
