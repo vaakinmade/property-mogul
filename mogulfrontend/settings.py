@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'storages',
     'listings',
 ]
 
@@ -73,6 +74,23 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mogulfrontend.wsgi.application'
+
+# AWS config
+if 'DYNO' not in os.environ:
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME', cast=str)
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', cast=str)
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', cast=str)
+    
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+
+    STATICFILES_LOCATION = 'mogulfrontend/static'
+    AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
+    STATIC_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+    STATICFILES_STORAGE = 'mogulfrontend.customstorages.StaticStorage'
+else:
+    STATIC_URL = '/static/'
 
 
 # Database
@@ -122,7 +140,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
 STATIC_URL = os.environ.get('STATIC_URL', STATIC_URL)
 STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'assets')]
