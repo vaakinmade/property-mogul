@@ -8,6 +8,11 @@ def get_rent_listings():
 	response = requests.get(url)
 	return response
 
+def get_sale_listings():
+	url = MOGUL_API_BASE_HOST + '/api/v1/listings/sale'
+	response = requests.get(url)
+	return response
+
 def search_listings(**kwargs):
 	url = MOGUL_API_BASE_HOST + '/api/v1/listings/search'
 	response = requests.get(url, params=kwargs)
