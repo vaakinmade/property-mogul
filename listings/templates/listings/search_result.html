@@ -121,28 +121,28 @@
 						<select name="bedroom" data-placeholder="Any bedroom" class="chosen-select-no-single" >
 							<option>Any Bed</option>
 							<option 
-							{% if request.GET.status == 1 %}selected{% endif %}>
-							 1
+							{% if request.GET.bedroom == '1' %}selected{% endif %}>
+							 1 Bedroom
 							</option>
 							<option 
-							{% if request.GET.status == 2 %}selected{% endif %}>
-							 2
+							{% if request.GET.bedroom == '2' %}selected{% endif %}>
+							 2 Bedroom
 							</option>
 							<option 
-							{% if request.GET.status == 3 %}selected{% endif %}>
-							 3
+							{% if request.GET.bedroom == '3' %}selected{% endif %}>
+							 3 Bedroom
 							</option>
 							<option 
-							{% if request.GET.status == 4 %}selected{% endif %}>
-							 4
+							{% if request.GET.bedroom == '4' %}selected{% endif %}>
+							 4 Bedroom
 							</option>
 							<option 
-							{% if request.GET.status == 5 %}selected{% endif %}>
-							 5
+							{% if request.GET.bedroom == '5' %}selected{% endif %}>
+							 5 Bedroom
 							</option>
 							<option 
-							{% if request.GET.status == 6 %}selected{% endif %}>
-							 6
+							{% if request.GET.bedroom == '6' %}selected{% endif %}>
+							 6 Bedroom
 							</option>
 						</select>
 					</div>
@@ -181,7 +181,7 @@
 					{% if request.GET.location %}
 						<h4>Properties {{listings.0.status}} in {{request.GET.location}}</h4>
 					{% else %}
-						Properties {{listings.0.status}}
+						Properties
 					{% endif %}
 				</div>
 
