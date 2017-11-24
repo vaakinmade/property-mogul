@@ -27,9 +27,9 @@ SECRET_KEY = 'ekkdw6#*dl2(3jl7v6267c-^&iyzekoa8n5%+sls2x3^o-jljq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
-MOGUL_API_BASE_HOST = config('MOGUL_API_ADDRESS')
+MOGUL_API_BASE_HOST = "https://mogul-api.herokuapp.com"
 
 # Application definition
 
