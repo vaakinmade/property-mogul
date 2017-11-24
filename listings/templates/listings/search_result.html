@@ -178,10 +178,21 @@
 			<div class="row margin-bottom-15">
 				
 				<div class="col-md-6">
-					{% if request.GET.location %}
-						<h4>Properties {{listings.0.status}} in {{request.GET.location}}</h4>
-					{% else %}
-						Properties
+					{% if not listings %} 
+						<h3>No properties match your search criteria</h3>
+					{% endif %}
+					
+					{% if request.GET %}
+						<h4>Properties 
+							{% if request.GET.status != "Any Status" %} 
+								{{request.GET.status|lower}} 
+							{% endif %} 
+							in {{request.GET.location|default:'Lagos and more...'}}
+						</h4>
+					{% elif "sale" in request.META.HTTP_REFERER %}
+						Properties for sale
+					{% elif "rent" in request.META.HTTP_REFERER %}
+						Properties for rent
 					{% endif %}
 				</div>
 
