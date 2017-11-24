@@ -21,7 +21,6 @@ class SearchMogulView(generic.View):
 		if query_dict:
 			query = (query_dict.dict())
 			response = interface.search_listings(**query)
-
 			listings = {"listings" : self.convert_to_datetime(response)}
 			return render(request, 'listings/search_result.html', listings)
 		else:
@@ -45,6 +44,14 @@ class ListingDetailView(generic.View):
 class PropertyRentView(generic.View):
 	def get(self, request):
 		response = interface.get_rent_listings()
+		obj = SearchMogulView()
+		listings = {"listings" : obj.convert_to_datetime(response)}		
+		return render(request, 'listings/search_result.html', listings)
+
+
+class PropertySaleView(generic.View):
+	def get(self, request):
+		response = interface.get_sale_listings()
 		obj = SearchMogulView()
 		listings = {"listings" : obj.convert_to_datetime(response)}		
 		return render(request, 'listings/search_result.html', listings)
