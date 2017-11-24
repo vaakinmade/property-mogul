@@ -40,3 +40,11 @@ class ListingDetailView(generic.View):
 		response = interface.detail_listings(self.kwargs.get('pk'))
 		listing = {"listing": self.split_features(response)}
 		return render(request, 'listings/listing_detail.html', listing)
+
+
+class PropertyRentView(generic.View):
+	def get(self, request):
+		response = interface.get_rent_listings()
+		obj = SearchMogulView()
+		listings = {"listings" : obj.convert_to_datetime(response)}		
+		return render(request, 'listings/search_result.html', listings)
